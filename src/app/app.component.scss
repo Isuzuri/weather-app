@@ -1,0 +1,13 @@
+:host {
+    > * {
+        display: flex;
+
+        margin: 1.5rem auto;
+
+        width: 80%;
+
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 1px lightgray;
+    }
+}
