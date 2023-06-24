@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public navBarList = ['Today', '5-day forecast']
+  currentWeather: any;
+  receiveCurrentWeather($event: any){
+    this.currentWeather = $event;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'card-title',
@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./card-title.component.scss']
 })
 export class CardTitleComponent {
-  public title!: string;
-  public additionalInfo?: Date;
+  @Input() title!: string;
+  @Input() additionalInfo?: Date;
 }

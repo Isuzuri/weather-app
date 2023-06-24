@@ -1,4 +1,4 @@
-<header></header>
+<header (weatherEvent)="receiveCurrentWeather($event)"></header>
 <navigation-bar [linkList]="navBarList"></navigation-bar>
-<today-page></today-page>
+<today-page [currentWeather]="currentWeather"></today-page>
 <!-- <router-outlet></router-outlet> -->

@@ -3,29 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
-import { HeaderComponent } from './header/header.component';
-import { CardTitleComponent } from './card-title/card-title.component';
 import { TodayPageModule } from './today-page/today-page.module';
 import { FiveDayPageModule } from './five-day-page/five-day-page.module';
+import { HeaderComponent } from './header/header.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationBarComponent,
-    HeaderComponent,
-    CardTitleComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     TodayPageModule,
-    FiveDayPageModule
+    FiveDayPageModule,
+    SharedModule
   ],
   providers: [],
-  exports: [
-    CardTitleComponent
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

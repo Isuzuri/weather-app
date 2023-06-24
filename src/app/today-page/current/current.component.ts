@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { getWeather } from 'src/app/helpers/getWeather';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'current',
@@ -7,5 +6,6 @@ import { getWeather } from 'src/app/helpers/getWeather';
   styleUrls: ['./current.component.scss']
 })
 export class CurrentComponent {
-  // public weather = getWeather()
+  @Input() title: string = 'Current Weather';
+  @Input() additionalInfo: Date = new Date();
 }
