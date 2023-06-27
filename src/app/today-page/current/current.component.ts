@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./current.component.scss']
 })
 export class CurrentComponent {
-  @Input() title: string = 'Current Weather';
-  @Input() additionalInfo: Date = new Date();
+  title: string = 'Current Weather';
+  additionalInfo: Date = new Date();
 }

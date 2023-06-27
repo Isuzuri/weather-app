@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card-title.component.scss']
 })
 export class CardTitleComponent {
-  @Input() title!: string;
+  @Input() title: string = 'Hello';
   @Input() additionalInfo?: Date;
 }

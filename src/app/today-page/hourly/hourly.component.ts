@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./hourly.component.scss']
 })
 export class HourlyComponent {
-
+  title = 'Hourly';
 }
