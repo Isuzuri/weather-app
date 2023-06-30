@@ -1,16 +1,16 @@
 <card-title [title]="title" [additionalInfo]="additionalInfo"></card-title>
 <div class="weather-info">
     <div>
-        <div></div>
-        <div>Sunny</div>
+        <div><img src="https://openweathermap.org/img/wn/{{weather.icon}}.png"></div>
+        <div>{{weather.desc}}</div>
     </div>
     <div>
-        <div>°C</div>
-        <div>Reel Feel </div>
+        <div>{{weather.temp | number: '1.0-0'}} °C</div>
+        <div>Reel Feel {{weather.feelsLike | number: '1.0-0'}} °C</div>
     </div>
     <div>
-        <div>Sunrise:</div>
-        <div>Sunset:</div>
-        <div>Duration:</div>
+        <div>Sunrise: {{weather.sunrise | date: 'HH:mm'}}</div>
+        <div>Sunset: {{weather.sunset | date: 'HH:mm'}}</div>
+        <div>Duration: {{weather.lengthOfDay}}</div>
     </div>
 </div>

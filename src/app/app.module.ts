@@ -7,6 +7,9 @@ import { TodayPageModule } from './today-page/today-page.module';
 import { FiveDayPageModule } from './five-day-page/five-day-page.module';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
+import { TodayService } from './services/today.service';
+import { LogService } from './services/log.service';
+import { FiveDayService } from './services/five-day.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,7 @@ import { SharedModule } from './shared/shared.module';
     FiveDayPageModule,
     SharedModule
   ],
-  providers: [],
+  providers: [TodayService, LogService, FiveDayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

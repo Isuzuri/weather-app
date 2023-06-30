@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { getWeather } from '../helpers/getWeather';
+// import { getWeather } from '../helpers/getWeather';
 
 @Component({
   selector: 'header',

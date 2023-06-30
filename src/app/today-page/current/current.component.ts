@@ -1,11 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TodayInterface } from 'src/app/entities/interfaces';
+import { TodayService } from 'src/app/services/today.service';
 
 @Component({
   selector: 'current',
   templateUrl: './current.component.html',
   styleUrls: ['./current.component.scss']
 })
-export class CurrentComponent {
-  title: string = 'Current Weather';
-  additionalInfo: Date = new Date();
+export class CurrentComponent implements OnInit {
+  public title: string = 'Current Weather';
+  public additionalInfo: Date = new Date();
+  public weather: TodayInterface.CurrentWeather = {
+    date: new Date(),
+    icon: '',
+    desc: '',
+    temp: 0,
+    feelsLike: 0,
+    sunrise: new Date(),
+    sunset: new Date(),
+    lengthOfDay: '0'
+  };
+
+  constructor (private todayService: TodayService) {} 
+
+  // FOR TEST
+  async ngOnInit() {
+    setTimeout(() => {
+      this.weather = this.todayService.getCurrentWeather();
+    }, 1000);
+  }
 }
