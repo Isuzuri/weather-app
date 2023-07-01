@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardTitleComponent } from './card-title/card-title.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -10,14 +11,16 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 @NgModule({
   declarations: [
     CardTitleComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
   ],
   exports: [
     CardTitleComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }

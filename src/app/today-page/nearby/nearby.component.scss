@@ -1,0 +1,15 @@
+.nearbyPlaces {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    padding: 0.5rem 1rem;
+
+    > div {
+        width: calc(50% - 0.5rem);
+
+        padding: 0.5rem;
+
+        border: 1px solid red;
+    }
+}

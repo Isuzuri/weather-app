@@ -1,0 +1,10 @@
+<table>
+    <thead *ngIf="tableHead">
+        <td *ngFor="let title of tableHead">{{title}}</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of tableBody">
+            <td *ngFor="let item of row">{{item}}</td>
+        </tr>
+    </tbody>
+</table>

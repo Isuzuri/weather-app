@@ -19,6 +19,7 @@ export class TodayService{
 
     private hourly: TodayInterface.Hourly[] = [];
     private nearly: TodayInterface.Nearly[] = [];
+    private API_KEY = "a8d6480edb4735dd39b1b37f0993ebc2";
 
     getCurrentWeather(): TodayInterface.CurrentWeather {
         return this.currentWeather;
@@ -28,13 +29,13 @@ export class TodayService{
         return this.hourly;
     }
 
-    getNearlyWeather(): TodayInterface.Nearly[] {
+    getNearbyWeather(): TodayInterface.Nearly[] {
         return this.nearly;
     }
 
     async setCurrentWeather(city: string = 'London') {
         const geoPosition = await this.getTodayWeather(city);
-        const currentDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=a8d6480edb4735dd39b1b37f0993ebc2`).then(res => res.json());
+        const currentDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         const currentWeather: TodayInterface.CurrentWeather = {
             date: new Date(currentDayWeather.dt * 1000),
             icon: currentDayWeather.weather[0].icon,
@@ -48,12 +49,32 @@ export class TodayService{
         this.currentWeather = currentWeather;
     }
 
-    setHourlyWeather(hourly: TodayInterface.Hourly[]){
-        this.hourly = hourly;
+    async setHourlyWeather(city: string = 'London'){
+        const geoPosition = await this.getTodayWeather(city);
+        let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
+        hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
+            return day = {
+                time: new Date(day.dt * 1000),
+                icon: `<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png">`,
+                description: day.weather[0].description,
+                temp: Math.floor(day.main.temp - 273.15),
+                howFeel: Math.floor(day.main.feels_like - 273.15),
+                windDirectiondAndSpeed: day.wind.deg
+            }
+        });
+        const time = hourlyWeather.map((e: any) => e.time);
+        const icon = hourlyWeather.map((e: any) => e.icon);
+        const description = hourlyWeather.map((e: any) => e.description);
+        const temp = hourlyWeather.map((e: any) => e.temp);
+        const howFeel = hourlyWeather.map((e: any) => e.howFeel);
+        const windDirectiondAndSpeed = hourlyWeather.map((e:any) => e.windDirectiondAndSpeed);
+        hourlyWeather = [time, icon, description, temp, howFeel, windDirectiondAndSpeed];
+        this.hourly = hourlyWeather
     }
 
-    setNearlyWeather(nearly: TodayInterface.Nearly[]){
-        this.nearly = nearly;
+    async setNearbyWeather(city: string = 'London'){
+        const geoPosition = await this.getTodayWeather(city);
+        // Где брать соседние города?
     }
 
     private async getTodayWeather(city: string) {

@@ -17,12 +17,12 @@ export class AppComponent implements OnInit {
     this.todayService.setCurrentWeather(city);
   }
 
-  todaySetHourlyWeather(hourly: TodayInterface.Hourly[]){
-    this.todayService.setHourlyWeather(hourly);
+  todaySetHourlyWeather(city: string = 'London'){
+    this.todayService.setHourlyWeather(city);
   }
 
-  todaySetNearlyWeather(nearly: TodayInterface.Nearly[]){
-    this.todayService.setNearlyWeather(nearly);
+  todaySetNearlyWeather(city: string = 'London'){
+    this.todayService.setNearbyWeather(city);
   }
 
   fiveDaySetOneDayWeather(oneDayWeather: FiveDayForecastInterface.Day[]){
@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   // FOR TEST
   async ngOnInit() {
     this.todaySetCurrentWeather();
+    this.todaySetHourlyWeather()
   }
 }
 
