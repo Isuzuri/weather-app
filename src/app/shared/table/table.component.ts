@@ -6,21 +6,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() public tableHead: string[] = [];
-  @Input() public tableBody: string[][] = [];
-  @Input() public additionalLeftTitle: string[] = [];
+  @Input() weatherInfo: any;
+  titleList = ['TODAY', '', 'Forecast', 'Temp (°C)', 'RealFeel', 'Wind (kh/h)']
 
   async ngOnInit() {
     setTimeout(() => {
-      if (this.additionalLeftTitle.length > 0) {
-        this.addLeftTitle(this.additionalLeftTitle);      
-      }
+      
     }, 700)
-    
-  }
-  addLeftTitle(titleArray: string[]) {
-    this.tableBody.map((e, i) => {
-      e.unshift(titleArray[i]);
-    })
   }
 }

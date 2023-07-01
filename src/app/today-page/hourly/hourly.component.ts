@@ -9,8 +9,6 @@ import { TodayService } from 'src/app/services/today.service';
 export class HourlyComponent implements OnInit {
   title = 'Hourly';
   weather: any = [];
-  tableBody: string[][] = [];
-  additionalLeftTitle: string[] = [];
 
   constructor(private todayService: TodayService) {}
 
@@ -19,8 +17,6 @@ export class HourlyComponent implements OnInit {
     setTimeout(() => {
       this.weather = this.todayService.getHourlyWeather();
       console.dir(this.weather);
-      this.additionalLeftTitle = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
-      this.tableBody = this.weather;
     }, 500);
   }
 }

@@ -55,7 +55,7 @@ export class TodayService{
         hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
             return day = {
                 time: new Date(day.dt * 1000),
-                icon: `<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png">`,
+                icon: day.weather[0].icon,
                 description: day.weather[0].description,
                 temp: Math.floor(day.main.temp - 273.15),
                 howFeel: Math.floor(day.main.feels_like - 273.15),
