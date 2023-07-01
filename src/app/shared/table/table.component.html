@@ -1,8 +1,10 @@
-<table *ngIf="weatherInfo">
+<table>
+    <thead *ngIf="tableHead">
+        <td *ngFor="let title of tableHead">{{title}}</td>
+    </thead>
     <tbody>
-        <tr *ngFor="let title of titleList, let index = index">
-            <td>{{title}}</td>
-            <td *ngFor="let item of weatherInfo[index]">{{item}}</td>
+        <tr *ngFor="let row of tableBody">
+            <td *ngFor="let item of row">{{item}}</td>
         </tr>
     </tbody>
 </table>

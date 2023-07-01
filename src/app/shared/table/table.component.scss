@@ -1,0 +1,25 @@
+table {
+    width: calc(100% - 2rem);
+
+    border-collapse: collapse;
+
+    margin: 0.5rem auto;
+
+    tbody {
+        td {
+            width: calc(100% / 7);
+
+            text-align: center;
+
+            &:first-child {
+                text-align: left;
+                padding: 0.5rem;
+            }
+            
+            &:nth-child(even) {
+                border-left: 1px solid rgba($color: #000000, $alpha: 0.1);
+                border-right: 1px solid rgba($color: #000000, $alpha: 0.1);
+            }
+        }
+    }
+}

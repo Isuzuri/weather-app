@@ -54,8 +54,8 @@ export class TodayService{
         let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
             return day = {
-                time: new Date(day.dt * 1000),
-                icon: day.weather[0].icon,
+                time: this.getRightTime(new Date(day.dt * 1000)),
+                icon: `<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png">`,
                 description: day.weather[0].description,
                 temp: Math.floor(day.main.temp - 273.15),
                 howFeel: Math.floor(day.main.feels_like - 273.15),
@@ -87,5 +87,13 @@ export class TodayService{
         const hours = Math.floor(lengthOfDay / 3600);
         const minutes = Math.floor((lengthOfDay % 3600) / 60);
         return `${hours}h ${minutes}m`;
-      }
+    }
+
+    private getRightTime(time: Date) {
+        const hours = time.getHours() 
+        const minutes = time.getMinutes()
+        if (minutes < 10) {
+            return `${hours}:0${minutes}`
+        } else return `${hours}:${minutes}`
+    }
 }
