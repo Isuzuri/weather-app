@@ -34,7 +34,7 @@ export class TodayService{
     }
 
     async setCurrentWeather(city: string = 'London') {
-        const geoPosition = await this.getTodayWeather(city);
+        const geoPosition = await this.getGeopos(city);
         const currentDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         const currentWeather: TodayInterface.CurrentWeather = {
             date: new Date(currentDayWeather.dt * 1000),
@@ -50,7 +50,7 @@ export class TodayService{
     }
 
     async setHourlyWeather(city: string = 'London'){
-        const geoPosition = await this.getTodayWeather(city);
+        const geoPosition = await this.getGeopos(city);
         let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
             return day = {
@@ -73,11 +73,11 @@ export class TodayService{
     }
 
     async setNearbyWeather(city: string = 'London'){
-        const geoPosition = await this.getTodayWeather(city);
+        const geoPosition = await this.getGeopos(city);
         // Где брать соседние города?
     }
 
-    private async getTodayWeather(city: string) {
+    private async getGeopos(city: string) {
         const geoPosition = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a8d6480edb4735dd39b1b37f0993ebc2`).then(res => res.json());
         return {lat: geoPosition[0].lat, lon: geoPosition[0].lon};
     }

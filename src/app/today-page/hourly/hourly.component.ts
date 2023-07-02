@@ -18,7 +18,6 @@ export class HourlyComponent implements OnInit {
   async ngOnInit() {
     setTimeout(() => {
       this.weather = this.todayService.getHourlyWeather();
-      console.dir(this.weather);
       this.additionalLeftTitle = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
       this.tableBody = this.weather;
     }, 600);

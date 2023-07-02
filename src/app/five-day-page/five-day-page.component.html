@@ -1,0 +1,9 @@
+<one-day
+    *ngFor="let oneDay of dailyWeather"
+    [title]="oneDay.weekDay"
+    [date]="oneDay.date"
+    [icon]="oneDay.icon"
+    [temp]="oneDay.temp"
+    [description]="oneDay.description"
+    >
+</one-day>
