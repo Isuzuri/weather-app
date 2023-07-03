@@ -3,6 +3,7 @@ import { FiveDayForecastInterface } from "../entities/interfaces";
 
 @Injectable()
 export class FiveDayService {
+    private fiveDayWeather: any = [];
     private fiveDayDaily: FiveDayForecastInterface.Day[] = [];
     private fiveDayHourly: FiveDayForecastInterface.Hourly[] = [];
 
@@ -39,18 +40,22 @@ export class FiveDayService {
                 description: day.description,
             }
         })
-        let fiveDayHourly = fiveDayWeather.map((day: any) => {
-            return day = {
-                time: day.time,
-                icon: day.icon,
-                description : day.description,
-                temp: day.temp,
-                howFeel: day.howFeel,
-                windDirectiondAndSpeed: day.windDirectiondAndSpeed
-            }
-        })
+        
         this.fiveDayDaily = fiveDayDaily;
-        this.fiveDayHourly = fiveDayHourly;
+        this.fiveDayWeather = fiveDayWeather;
+    }
+
+    setHourlyWeather(weekDay: string){
+        let currentDay = this.fiveDayWeather.filter((e: { weekDay: string; }) => e.weekDay.toLocaleUpperCase() == weekDay);
+        currentDay = currentDay.slice(0, 6)
+        const time = currentDay.map((e: { time: any; }) => e.time);
+        const icon = currentDay.map((e: { icon: any; }) => `<img src="https://openweathermap.org/img/wn/${e.icon}.png">`,);
+        const description = currentDay.map((e: { description: any; }) => e.description);
+        const temp = currentDay.map((e: { temp: any; }) => e.temp);
+        const howFeel = currentDay.map((e: { howFeel: any; }) => e.howFeel);
+        const windDirectiondAndSpeed = currentDay.map((e: { windDirectiondAndSpeed: any; }) => e.windDirectiondAndSpeed);
+        let fiveDayHourly = [time, icon, description, temp, howFeel, windDirectiondAndSpeed];
+        return fiveDayHourly;
     }
 
     private async getGeopos(city: string) {

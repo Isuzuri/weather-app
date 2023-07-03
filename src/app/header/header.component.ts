@@ -1,5 +1,4 @@
 import { Component} from '@angular/core';
-// import { getWeather } from '../helpers/getWeather';
 
 @Component({
   selector: 'header',
@@ -7,5 +6,7 @@ import { Component} from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  
+  setWeather() {
+    
+  }
 }

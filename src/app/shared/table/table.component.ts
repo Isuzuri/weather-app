@@ -24,6 +24,7 @@ export class TableComponent implements OnInit {
     }, 700)
     
   }
+
   addLeftTitle(titleArray: string[]) {
     this.tableBody.map((e, i) => {
       e.unshift(titleArray[i]);

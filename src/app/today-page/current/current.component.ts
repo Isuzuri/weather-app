@@ -10,7 +10,8 @@ import { TodayService } from 'src/app/services/today.service';
 export class CurrentComponent implements OnInit {
   public title: string = 'Current Weather';
   public additionalInfo: Date = new Date();
-  public weather: TodayInterface.CurrentWeather = {
+  
+  weather: TodayInterface.CurrentWeather = {
     date: new Date(),
     icon: '',
     desc: '',
@@ -24,9 +25,9 @@ export class CurrentComponent implements OnInit {
   constructor (private todayService: TodayService) {} 
 
   // FOR TEST
-  async ngOnInit() {
-    setTimeout(() => {
-      this.weather = this.todayService.getCurrentWeather();
-    }, 1000);
+  ngOnInit() {
+    // setTimeout(() => {
+    //   this.weather = this.todayService.getCurrentWeather();
+    // }, 1000);
   }
 }

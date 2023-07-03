@@ -9,7 +9,7 @@ import { FiveDayService } from './services/five-day.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public navBarList = ['Today', '5-day forecast']
+public navBarList = ['Today', '5-day forecast'];
   
   constructor (private todayService: TodayService, private fiveDayService: FiveDayService) {}
 

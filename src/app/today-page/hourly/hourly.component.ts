@@ -8,18 +8,19 @@ import { TodayService } from 'src/app/services/today.service';
 })
 export class HourlyComponent implements OnInit {
   title = 'Hourly';
+  
   weather: any = [];
-  tableBody: string[][] = [];
-  additionalLeftTitle: string[] = [];
+
+  tableBody: string[][] = this.weather;
+  additionalLeftTitle: string[] = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
 
   constructor(private todayService: TodayService) {}
 
   // FOR TEST
   async ngOnInit() {
-    setTimeout(() => {
-      this.weather = this.todayService.getHourlyWeather();
-      this.additionalLeftTitle = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
-      this.tableBody = this.weather;
-    }, 600);
+    // setTimeout(() => {
+    //   this.weather = this.todayService.getHourlyWeather();
+    //   this.tableBody = this.weather;
+    // }, 600);
   }
 }
