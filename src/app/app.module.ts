@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { TodayService } from './services/today.service';
 import { LogService } from './services/log.service';
 import { FiveDayService } from './services/five-day.service';
-
 @NgModule({
   declarations: [
     AppComponent,

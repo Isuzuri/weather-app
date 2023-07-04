@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public navBarList = ['Today', '5-day forecast'];
+  public routeLinkList = ['today', 'five-day'];
 }
 
