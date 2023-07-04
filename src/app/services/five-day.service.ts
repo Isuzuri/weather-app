@@ -10,7 +10,7 @@ export class FiveDayService {
     private API_KEY = "a8d6480edb4735dd39b1b37f0993ebc2";
 
     getWeather() {
-        return [this.fiveDayDaily, this.fiveDayHourly];
+        return this.fiveDayDaily
     }
 
     async setWeather(city: string = 'London'){

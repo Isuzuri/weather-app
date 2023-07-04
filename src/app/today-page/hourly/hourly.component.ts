@@ -1,26 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { TodayService } from 'src/app/services/today.service';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'hourly',
   templateUrl: './hourly.component.html',
   styleUrls: ['./hourly.component.scss']
 })
-export class HourlyComponent implements OnInit {
+export class HourlyComponent implements OnChanges{
   title = 'Hourly';
   
-  weather: any = [];
-
+  @Input() weather: any = [];
+  
   tableBody: string[][] = this.weather;
   additionalLeftTitle: string[] = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
 
-  constructor(private todayService: TodayService) {}
-
-  // FOR TEST
-  async ngOnInit() {
-    // setTimeout(() => {
-    //   this.weather = this.todayService.getHourlyWeather();
-    //   this.tableBody = this.weather;
-    // }, 600);
+  ngOnChanges(changes: SimpleChanges): void {    
+    this.tableBody = changes['weather'].currentValue;
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { TodayService } from '../services/today.service';
 import { TodayInterface } from '../entities/interfaces';
 
@@ -7,8 +7,12 @@ import { TodayInterface } from '../entities/interfaces';
   templateUrl: './today-page.component.html',
   styleUrls: ['./today-page.component.scss']
 })
-export class TodayPageComponent  {
+export class TodayPageComponent implements OnInit, DoCheck {
   constructor(private todayService: TodayService) {}
+  ngDoCheck(): void {
+    this.currentWeather = this.todayService.getCurrentWeather();
+    this.hourlyWeather = this.todayService.getHourlyWeather();    
+  }
   
   public currentWeather: TodayInterface.CurrentWeather = {
     date: new Date(),
@@ -19,5 +23,12 @@ export class TodayPageComponent  {
     sunrise: new Date(),
     sunset: new Date(),
     lengthOfDay: '0'
+  }
+
+  public hourlyWeather: any = [];
+
+  async ngOnInit() {
+    // await this.todayService.setCurrentWeather()
+    // await this.todayService.setHourlyWeather()
   }
 }

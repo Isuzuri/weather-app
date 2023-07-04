@@ -6,9 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./one-day.component.scss']
 })
 export class OneDayComponent {
-  @Input() title: string = '';
-  @Input() date: string = '';
-  @Input() icon: string = '';
-  @Input() temp: number = 0;
-  @Input() description: string = '';
+  @Input() oneDayWeather: any = {}
 }

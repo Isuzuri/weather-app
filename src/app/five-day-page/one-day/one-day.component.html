@@ -1,5 +1,5 @@
-<card-title [title]="title"></card-title>
-<div class="date">{{date}}</div>
-<div class="icon"><img src="https://openweathermap.org/img/wn/{{icon}}.png"></div>
-<div class="temp">{{temp}} °C</div>
-<div class="description">{{description}}</div>
+<card-title [title]="oneDayWeather.weekDay"></card-title>
+<div class="date">{{oneDayWeather.date}}</div>
+<div class="icon"><img src="https://openweathermap.org/img/wn/{{oneDayWeather.icon}}.png"></div>
+<div class="temp">{{oneDayWeather.temp}} °C</div>
+<div class="description">{{oneDayWeather.description}}</div>
