@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class NavigationBarComponent {
   @Input() linkList!: string[];
+  @Input() routeLinkList!: string[];
 }

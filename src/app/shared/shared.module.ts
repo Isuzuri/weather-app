@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardTitleComponent } from './card-title/card-title.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { TableComponent } from './table/table.component';
-
-
-
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,6 +14,7 @@ import { TableComponent } from './table/table.component';
   ],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports: [
     CardTitleComponent,

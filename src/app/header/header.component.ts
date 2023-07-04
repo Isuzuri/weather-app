@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FiveDayService } from '../services/five-day.service';
 import { TodayService } from '../services/today.service';
 
@@ -7,17 +7,17 @@ import { TodayService } from '../services/today.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   constructor(private todayService: TodayService, private fiveDayService: FiveDayService) {}
-  setWeather() {
-    let city = returnCity();
-    this.todayService.setCurrentWeather(city);
-    this.todayService.setHourlyWeather(city);
-    this.fiveDayService.setWeather(city);
 
-    function returnCity() {
-      let input = document.getElementById('city') as HTMLInputElement;
-      return input.value.split('')[0].toUpperCase() + input.value.slice(1).toLowerCase()
-    }
+  public placeholder: string = 'Paris'
+
+  ngOnInit() {
+    this.setWeather()
+  }
+  setWeather() {
+    this.todayService.setCurrentWeather(this.placeholder);
+    this.todayService.setHourlyWeather(this.placeholder);
+    this.fiveDayService.setWeather(this.placeholder);
   }
 }

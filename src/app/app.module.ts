@@ -10,6 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { TodayService } from './services/today.service';
 import { LogService } from './services/log.service';
 import { FiveDayService } from './services/five-day.service';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,8 @@ import { FiveDayService } from './services/five-day.service';
     AppRoutingModule,
     TodayPageModule,
     FiveDayPageModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [TodayService, LogService, FiveDayService],
   bootstrap: [AppComponent]
