@@ -26,7 +26,9 @@ export class FiveDayPageComponent implements OnInit, DoCheck {
     this.hourlyWeather = this.fiveDayService.setHourlyWeather(target());
 
     function target() {
-      if (event.target.tagName === 'IMG') {
+      if (event.target.nodeName === 'ONE-DAY') {
+        return event.target.childNodes[0].innerText
+      } else if (event.target.tagName === 'IMG') {
         return event.target.parentElement.parentElement.childNodes[0].innerText
       } else return event.target.parentElement.childNodes[0].innerText;
     }

@@ -3,4 +3,19 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+
+    cursor: default;
+}
+
+img {
+    background-color: rgba($color: black, $alpha: 0.1);
+    border: 1px solid transparent;
+    border-radius: 50%;
+
+    outline: 1px solid whitesmoke;
+    outline-offset: 2px;
+}
+
+.activeLink {
+    background-color: lightgray;
 }

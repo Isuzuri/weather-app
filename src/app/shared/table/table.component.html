@@ -3,7 +3,8 @@
         <td *ngFor="let title of tableHead">{{title}}</td>
     </thead>
     <tbody>
-        <tr *ngFor="let row of tableBody">
+        <tr *ngFor="let row of tableBody, let i = index">
+            <td>{{additionalLeftTitle[i]}}</td>
             <td *ngFor="let item of row">{{item}}</td>
         </tr>
     </tbody>

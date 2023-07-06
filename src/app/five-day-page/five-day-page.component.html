@@ -5,4 +5,4 @@
         (click)="showHourly($event)">
     </one-day>
 </div>
-<hourly [hourlyWeather]="hourlyWeather"></hourly>
+<hourly *ngIf="hourlyWeather" [hourlyWeather]="hourlyWeather"></hourly>

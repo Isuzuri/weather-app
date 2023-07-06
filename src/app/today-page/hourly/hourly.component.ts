@@ -11,7 +11,6 @@ export class HourlyComponent implements OnChanges{
   @Input() weather: any = [];
   
   tableBody: string[][] = this.weather;
-  additionalLeftTitle: string[] = ['TODAY', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
 
   ngOnChanges(changes: SimpleChanges): void {    
     this.tableBody = changes['weather'].currentValue;

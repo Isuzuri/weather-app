@@ -8,7 +8,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 export class TableComponent implements OnInit, OnChanges {
   @Input() public tableHead: string[] = [];
   @Input() public tableBody: string[][] = [];
-  @Input() public additionalLeftTitle: string[] = [];
+  public additionalLeftTitle: string[] = ['Time', '', 'Forecast', 'Temp (C)', 'RealFeel', 'Wind (km/h)'];
 
   ngOnChanges(changes: SimpleChanges): void {
     this.ngOnInit()
@@ -16,9 +16,6 @@ export class TableComponent implements OnInit, OnChanges {
 
   async ngOnInit() {
     setTimeout(() => {
-    //   // if (this.additionalLeftTitle.length > 0) {
-    //   //   this.addLeftTitle(this.additionalLeftTitle);
-    //   // }
       let fuckingImages: any = document.querySelectorAll('td')
         fuckingImages.forEach((e: HTMLElement, i: number) => {
           if (e.innerText.includes('<img src')) {
@@ -26,11 +23,5 @@ export class TableComponent implements OnInit, OnChanges {
           }
         })
     }, 0)
-  }
-
-  addLeftTitle(titleArray: string[]) {
-    this.tableBody.map((e, i) => {
-      e.unshift(titleArray[i]);
-    })
   }
 }
