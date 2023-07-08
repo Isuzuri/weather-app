@@ -2,7 +2,8 @@
     <one-day
         *ngFor="let oneDay of dailyWeather"
         [oneDayWeather]="oneDay"
-        (click)="showHourly($event)">
+        (click)="showHourly($event)"
+        class="oneDay">
     </one-day>
 </div>
 <hourly *ngIf="hourlyWeather" [hourlyWeather]="hourlyWeather"></hourly>

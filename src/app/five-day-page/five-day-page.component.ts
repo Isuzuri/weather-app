@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { FiveDayService } from '../services/five-day.service';
 
 @Component({
@@ -6,7 +6,8 @@ import { FiveDayService } from '../services/five-day.service';
   templateUrl: './five-day-page.component.html',
   styleUrls: ['./five-day-page.component.scss']
 })
-export class FiveDayPageComponent implements OnInit, DoCheck {
+
+export class FiveDayPageComponent implements DoCheck {
   constructor (private fiveDayService: FiveDayService) {}
   public dailyWeather: any;
   public hourlyWeather: any;
@@ -15,22 +16,23 @@ export class FiveDayPageComponent implements OnInit, DoCheck {
     this.dailyWeather = this.fiveDayService.getWeather()
   }
 
-  async ngOnInit() {
-    // await this.fiveDayService.setWeather()
-    // let weather = this.fiveDayService.getWeather()
-    // this.dailyWeather = weather[0]
-    // this.hourlyWeather = weather[1]
-  }
-
   showHourly(event: any) {
-    this.hourlyWeather = this.fiveDayService.setHourlyWeather(target());
-
-    function target() {
+    document.querySelectorAll('.oneDay').forEach(element => {
+      element.classList.remove('active')
+    })
+    const target = () => {
       if (event.target.nodeName === 'ONE-DAY') {
+        event.target.classList.add('active')
         return event.target.childNodes[0].innerText
       } else if (event.target.tagName === 'IMG') {
+        event.target.parentElement.parentElement.classList.add('active')
         return event.target.parentElement.parentElement.childNodes[0].innerText
-      } else return event.target.parentElement.childNodes[0].innerText;
+      } else {
+        event.target.parentElement.classList.add('active')
+        return event.target.parentElement.childNodes[0].innerText;
+      } 
     }
+
+    this.hourlyWeather = this.fiveDayService.setHourlyWeather(target());
   }
 }
