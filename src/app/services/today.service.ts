@@ -49,7 +49,7 @@ export class TodayService{
         this.currentWeather = currentWeather;
     }
 
-    async setHourlyWeather(city: string = 'London'){
+    async setHourlyWeather(city: string= 'London'){
         const geoPosition = await this.getGeopos(city);
         let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
