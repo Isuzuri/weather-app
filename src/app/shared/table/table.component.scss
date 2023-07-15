@@ -1,5 +1,6 @@
 table {
     width: calc(100% - 2rem);
+    table-layout: fixed;
 
     border-collapse: collapse;
 
@@ -7,7 +8,7 @@ table {
 
     tbody {
         tr {          
-            &:nth-child(1) {
+            &:nth-child(1), &:nth-child(4), &:nth-child(5) {
                 font-size: 1.1rem;
                 font-weight: 700;
             }
@@ -15,7 +16,6 @@ table {
 
         td {
             width: calc(100% / 7);
-            
 
             text-align: center;
 
@@ -24,6 +24,8 @@ table {
 
             &:first-child {
                 text-align: left;
+                font-size: 1rem;
+                font-weight: 400;
                 padding: 0.5rem 0.5rem 0.5rem 0rem;
             }
 

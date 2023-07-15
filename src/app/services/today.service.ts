@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { LogService } from "./log.service";
 import { TodayInterface } from "../entities/interfaces";
+import { HelpersComponent } from "../shared/helpers/helpers.component";
 
 @Injectable()
 export class TodayService{
@@ -33,67 +34,47 @@ export class TodayService{
         return this.nearly;
     }
 
-    async setCurrentWeather(city: string = 'London') {
-        const geoPosition = await this.getGeopos(city);
+    async setCurrentWeather(city: string) {
+        const geoPosition = await HelpersComponent.getGeopos(city);
         const currentDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         const currentWeather: TodayInterface.CurrentWeather = {
             date: new Date(currentDayWeather.dt * 1000),
             icon: currentDayWeather.weather[0].icon,
-            desc: currentDayWeather.weather[0].description,
+            desc: currentDayWeather.weather[0].main,
             temp: (currentDayWeather.main.temp - 273.15),
             feelsLike: (currentDayWeather.main.feels_like - 273.15),
             sunrise: new Date(currentDayWeather.sys.sunrise * 1000),
             sunset: new Date(currentDayWeather.sys.sunset * 1000),
-            lengthOfDay: this.getLengthOfDay(currentDayWeather.sys.sunset, currentDayWeather.sys.sunrise)
+            lengthOfDay: HelpersComponent.getLengthOfDay(currentDayWeather.sys.sunset, currentDayWeather.sys.sunrise)
         }
         this.currentWeather = currentWeather;
     }
 
-    async setHourlyWeather(city: string= 'London'){
-        const geoPosition = await this.getGeopos(city);
+    async setHourlyWeather(city: string) {
+        const geoPosition = await HelpersComponent.getGeopos(city);
         let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
         hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
             return day = {
-                time: this.getRightTime(new Date(day.dt * 1000)),
-                icon: `<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png">`,
-                description: day.weather[0].description,
+                time: HelpersComponent.getRightTime(new Date(day.dt * 1000)),
+                icon: day.weather[0].icon,
+                description: day.weather[0].main,
                 temp: Math.floor(day.main.temp - 273.15),
                 howFeel: Math.floor(day.main.feels_like - 273.15),
-                windDirectiondAndSpeed: day.wind.deg
+                windDirectiondAndSpeed: `${HelpersComponent.getWorldSide(day.wind.deg)}-${Math.floor(day.wind.speed * 3.6)}`
             }
         });
-        const time = hourlyWeather.map((e: any) => e.time);
-        const icon = hourlyWeather.map((e: any) => e.icon);
-        const description = hourlyWeather.map((e: any) => e.description);
-        const temp = hourlyWeather.map((e: any) => e.temp);
-        const howFeel = hourlyWeather.map((e: any) => e.howFeel);
-        const windDirectiondAndSpeed = hourlyWeather.map((e:any) => e.windDirectiondAndSpeed);
+        const time = hourlyWeather.map((e: { time: string; }) => e.time);
+        const icon = hourlyWeather.map((e: { icon: string; }) => ({value: e.icon, isImage: true}));
+        const description = hourlyWeather.map((e: { description: string; }) => e.description);
+        const temp = hourlyWeather.map((e: { temp: number; }) => e.temp);
+        const howFeel = hourlyWeather.map((e: { howFeel: number; }) => e.howFeel);
+        const windDirectiondAndSpeed = hourlyWeather.map((e: { windDirectiondAndSpeed: string; }) => e.windDirectiondAndSpeed);
         hourlyWeather = [time, icon, description, temp, howFeel, windDirectiondAndSpeed];
         this.hourly = hourlyWeather
     }
 
-    async setNearbyWeather(city: string = 'London'){
-        const geoPosition = await this.getGeopos(city);
-        // Где брать соседние города?
-    }
-
-    private async getGeopos(city: string) {
-        const geoPosition = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a8d6480edb4735dd39b1b37f0993ebc2`).then(res => res.json());
-        return {lat: geoPosition[0].lat, lon: geoPosition[0].lon};
-    }
-
-    private getLengthOfDay(sunset: number, sunrise: number) {
-        const lengthOfDay = sunset - sunrise;
-        const hours = Math.floor(lengthOfDay / 3600);
-        const minutes = Math.floor((lengthOfDay % 3600) / 60);
-        return `${hours}h ${minutes}m`;
-    }
-
-    private getRightTime(time: Date) {
-        const hours = time.getHours() 
-        const minutes = time.getMinutes()
-        if (minutes < 10) {
-            return `${hours}:0${minutes}`
-        } else return `${hours}:${minutes}`
+    async setNearbyWeather(city: string){
+        const geoPosition = await HelpersComponent.getGeopos(city);
+        // Нет живой Апишки ._.
     }
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FiveDayService } from '../services/five-day.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { FiveDayService } from '../services/five-day.service';
   styleUrls: ['./five-day-page.component.scss']
 })
 
-export class FiveDayPageComponent implements DoCheck {
+export class FiveDayPageComponent implements DoCheck, OnInit {
   constructor (private fiveDayService: FiveDayService) {}
   public dailyWeather: any;
   public hourlyWeather: any;
@@ -16,10 +16,17 @@ export class FiveDayPageComponent implements DoCheck {
     this.dailyWeather = this.fiveDayService.getWeather()
   }
 
+  ngOnInit(): void {
+    setTimeout(() => {
+        document.querySelector('.oneDay')?.dispatchEvent(new MouseEvent('click'));
+    }, 500);
+  }
+
   showHourly(event: any) {
     document.querySelectorAll('.oneDay').forEach(element => {
       element.classList.remove('active')
     })
+    
     const target = () => {
       if (event.target.nodeName === 'ONE-DAY') {
         event.target.classList.add('active')
@@ -33,6 +40,6 @@ export class FiveDayPageComponent implements DoCheck {
       } 
     }
 
-    this.hourlyWeather = this.fiveDayService.setHourlyWeather(target());
+    this.hourlyWeather = this.fiveDayService.getHourlyWeather(target());
   }
 }

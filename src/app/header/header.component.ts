@@ -10,23 +10,26 @@ import { TodayService } from '../services/today.service';
 export class HeaderComponent implements OnInit {
   constructor(private todayService: TodayService, private fiveDayService: FiveDayService) {}
 
-  public placeholder: string = 'Paris'
+  public placeholder: string = ''
+  private API_KEY = "a8d6480edb4735dd39b1b37f0993ebc2";
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.setWeather('Tokyo')
     navigator.geolocation.getCurrentPosition(position => {   
-      this.setCity(position.coords.latitude, position.coords.longitude)
+      this.setWeatherByGeolocation(position.coords.latitude, position.coords.longitude);
     })
-    this.setWeather()
-  }
-  setWeather() {
-    this.todayService.setCurrentWeather(this.placeholder);
-    this.todayService.setHourlyWeather(this.placeholder);
-    this.fiveDayService.setWeather(this.placeholder);
   }
 
-  async setCity(lat: number, lon: number) {
-    const city = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=a8d6480edb4735dd39b1b37f0993ebc2`).then(res => res.json());
-    this.placeholder = await city.name;    
-    localStorage.setItem('city', this.placeholder);
+  setWeather(city: string) {
+    this.todayService.setCurrentWeather(city.split('')[0]);
+    this.todayService.setHourlyWeather(city.split('')[0]);
+    this.fiveDayService.setWeather(city.split('')[0]);
+    this.placeholder = city;
+  }
+
+  async setWeatherByGeolocation(lat: number, lon: number) {
+    const city = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}`).then(res => res.json());
+    this.placeholder = await city.name;
+    this.setWeather(this.placeholder);
   }
 }
