@@ -17,9 +17,13 @@ export class FiveDayPageComponent implements DoCheck, OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-        document.querySelector('.oneDay')?.dispatchEvent(new MouseEvent('click'));
-    }, 500);
+    const intervalId = setInterval(() => {
+      const target = document.querySelector('.oneDay');
+      if (target) {
+        target.dispatchEvent(new MouseEvent('click'));
+        clearInterval(intervalId);
+      }
+    }, 10);
   }
 
   showHourly(event: any) {
