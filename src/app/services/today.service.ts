@@ -55,6 +55,7 @@ export class TodayService{
             };
       
             this.currentWeather = currentWeather;
+            this.router.navigateByUrl('today');
           } 
         } catch (error) {
             this.router.navigateByUrl('error');
