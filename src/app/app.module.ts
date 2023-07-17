@@ -11,11 +11,13 @@ import { TodayService } from './services/today.service';
 import { LogService } from './services/log.service';
 import { FiveDayService } from './services/five-day.service';
 import { FormsModule } from '@angular/forms';
+import { PageNotExistComponent } from './page-not-exist/page-not-exist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotExistComponent
   ],
   imports: [
     BrowserModule,

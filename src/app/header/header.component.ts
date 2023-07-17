@@ -29,6 +29,8 @@ export class HeaderComponent implements OnInit {
 
   async setWeatherByGeolocation(lat: number, lon: number) {
     const city = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}`).then(res => res.json());
+    
+    
     this.placeholder = await city.name;
     this.setWeather(this.placeholder);
   }

@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { LogService } from "./log.service";
 import { TodayInterface } from "../entities/interfaces";
 import { HelpersComponent } from "../shared/helpers/helpers.component";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TodayService{
-    constructor(private logService: LogService) {}
+    constructor(private logService: LogService, private router: Router) {}
 
     private currentWeather: TodayInterface.CurrentWeather = {
         date: new Date(),
@@ -35,20 +36,30 @@ export class TodayService{
     }
 
     async setCurrentWeather(city: string) {
-        const geoPosition = await HelpersComponent.getGeopos(city);
-        const currentDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
-        const currentWeather: TodayInterface.CurrentWeather = {
-            date: new Date(currentDayWeather.dt * 1000),
-            icon: currentDayWeather.weather[0].icon,
-            desc: currentDayWeather.weather[0].main,
-            temp: (currentDayWeather.main.temp - 273.15),
-            feelsLike: (currentDayWeather.main.feels_like - 273.15),
-            sunrise: new Date(currentDayWeather.sys.sunrise * 1000),
-            sunset: new Date(currentDayWeather.sys.sunset * 1000),
-            lengthOfDay: HelpersComponent.getLengthOfDay(currentDayWeather.sys.sunset, currentDayWeather.sys.sunrise)
+        try {
+          const geoPosition = await HelpersComponent.getGeopos(city);
+          const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`);
+      
+          if (response.ok) {
+            const currentDayWeather = await response.json();
+      
+            const currentWeather: TodayInterface.CurrentWeather = {
+              date: new Date(currentDayWeather.dt * 1000),
+              icon: currentDayWeather.weather[0].icon,
+              desc: currentDayWeather.weather[0].main,
+              temp: (currentDayWeather.main.temp - 273.15),
+              feelsLike: (currentDayWeather.main.feels_like - 273.15),
+              sunrise: new Date(currentDayWeather.sys.sunrise * 1000),
+              sunset: new Date(currentDayWeather.sys.sunset * 1000),
+              lengthOfDay: HelpersComponent.getLengthOfDay(currentDayWeather.sys.sunset, currentDayWeather.sys.sunrise)
+            };
+      
+            this.currentWeather = currentWeather;
+          } 
+        } catch (error) {
+            this.router.navigateByUrl('error');
         }
-        this.currentWeather = currentWeather;
-    }
+      }
 
     async setHourlyWeather(city: string) {
         const geoPosition = await HelpersComponent.getGeopos(city);

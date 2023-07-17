@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem auto;
+    padding: 1rem;
+
+    width: 80%;
+
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        
+        img {
+            width: 75%;
+        }
+    }
+    
+}
