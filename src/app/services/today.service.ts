@@ -20,7 +20,6 @@ export class TodayService{
     }
 
     private hourly: TodayInterface.Hourly[] = [];
-    private nearly: TodayInterface.Nearly[] = [];
     private API_KEY = "a8d6480edb4735dd39b1b37f0993ebc2";
 
     getCurrentWeather(): TodayInterface.CurrentWeather {
@@ -29,10 +28,6 @@ export class TodayService{
 
     getHourlyWeather(): TodayInterface.Hourly[] {
         return this.hourly;
-    }
-
-    getNearbyWeather(): TodayInterface.Nearly[] {
-        return this.nearly;
     }
 
     async setCurrentWeather(city: string) {
@@ -63,30 +58,34 @@ export class TodayService{
       }
 
     async setHourlyWeather(city: string) {
-        const geoPosition = await HelpersComponent.getGeopos(city);
-        let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
-        hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
-            return day = {
-                time: HelpersComponent.getRightTime(new Date(day.dt * 1000)),
-                icon: day.weather[0].icon,
-                description: day.weather[0].main,
-                temp: Math.floor(day.main.temp - 273.15),
-                howFeel: Math.floor(day.main.feels_like - 273.15),
-                windDirectiondAndSpeed: `${HelpersComponent.getWorldSide(day.wind.deg)}-${Math.floor(day.wind.speed * 3.6)}`
-            }
-        });
-        const time = hourlyWeather.map((e: { time: string; }) => e.time);
-        const icon = hourlyWeather.map((e: { icon: string; }) => ({value: e.icon, isImage: true}));
-        const description = hourlyWeather.map((e: { description: string; }) => e.description);
-        const temp = hourlyWeather.map((e: { temp: number; }) => e.temp);
-        const howFeel = hourlyWeather.map((e: { howFeel: number; }) => e.howFeel);
-        const windDirectiondAndSpeed = hourlyWeather.map((e: { windDirectiondAndSpeed: string; }) => e.windDirectiondAndSpeed);
-        hourlyWeather = [time, icon, description, temp, howFeel, windDirectiondAndSpeed];
-        this.hourly = hourlyWeather
+        try {
+            const geoPosition = await HelpersComponent.getGeopos(city);
+            let hourlyWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
+            hourlyWeather = hourlyWeather.list.slice(0, 6).map((day: any) => {
+                return day = {
+                    time: HelpersComponent.getRightTime(new Date(day.dt * 1000)),
+                    icon: day.weather[0].icon,
+                    description: day.weather[0].main,
+                    temp: Math.floor(day.main.temp - 273.15),
+                    howFeel: Math.floor(day.main.feels_like - 273.15),
+                    windDirectiondAndSpeed: `${HelpersComponent.getWorldSide(day.wind.deg)}-${Math.floor(day.wind.speed * 3.6)}`
+                }
+            });
+            const time = hourlyWeather.map((e: { time: string; }) => e.time);
+            const icon = hourlyWeather.map((e: { icon: string; }) => ({value: e.icon, isImage: true}));
+            const description = hourlyWeather.map((e: { description: string; }) => e.description);
+            const temp = hourlyWeather.map((e: { temp: number; }) => e.temp);
+            const howFeel = hourlyWeather.map((e: { howFeel: number; }) => e.howFeel);
+            const windDirectiondAndSpeed = hourlyWeather.map((e: { windDirectiondAndSpeed: string; }) => e.windDirectiondAndSpeed);
+            hourlyWeather = [time, icon, description, temp, howFeel, windDirectiondAndSpeed];
+            this.hourly = hourlyWeather;
+        } catch (error) {
+            
+        }
     }
-
-    async setNearbyWeather(city: string){
-        const geoPosition = await HelpersComponent.getGeopos(city);
-        // Нет живой Апишки ._.
+    
+    async getCity(lat: number, lon: number) {
+        const city = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}`).then(res => res.json());
+        return await city.name;
     }
 }

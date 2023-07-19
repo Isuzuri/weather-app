@@ -14,37 +14,42 @@ export class FiveDayService {
     }
 
     async setWeather(city: string){
-        const geoPosition = await HelpersComponent.getGeopos(city);
-        let fiveDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
-       
-        fiveDayWeather = fiveDayWeather.list.map((day: any) => {
-            return day = {
-                weekDay: HelpersComponent.getWeekDay(new Date(day.dt * 1000)),
-                date: HelpersComponent.getDate(new Date(day.dt * 1000)),
-                icon: day.weather[0].icon,
-                temp: Math.floor(day.main.temp - 273.15),
-                description:  day.weather[0].main,
-                time: HelpersComponent.getRightTime(new Date(day.dt * 1000)),
-                howFeel: Math.floor(day.main.feels_like - 273.15),
-                windDirectiondAndSpeed: `${HelpersComponent.getWorldSide(day.wind.deg)}-${Math.floor(day.wind.speed * 3.6)}`
-            }
-        })
-
-        let fiveDayDaily = this.getHighestDayTemp(await fiveDayWeather);
-
-        fiveDayDaily = fiveDayDaily.slice(0, 5).map((day: any) => {
-            return day = {
-                weekDay: day.weekDay,
-                date: day.date,
-                icon: day.icon,
-                temp: day.temp,
-                description: day.description,
-            }
-        })
-        
-        this.fiveDayDaily = fiveDayDaily;
-        this.fiveDayWeather = fiveDayWeather;
+        try {
+            const geoPosition = await HelpersComponent.getGeopos(city);
+            let fiveDayWeather = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${geoPosition.lat}&lon=${geoPosition.lon}&appid=${this.API_KEY}`).then(res => res.json());
+    
+            fiveDayWeather = fiveDayWeather.list.map((day: any) => {
+                return day = {
+                    weekDay: HelpersComponent.getWeekDay(new Date(day.dt * 1000)),
+                    date: HelpersComponent.getDate(new Date(day.dt * 1000)),
+                    icon: day.weather[0].icon,
+                    temp: Math.floor(day.main.temp - 273.15),
+                    description:  day.weather[0].main,
+                    time: HelpersComponent.getRightTime(new Date(day.dt * 1000)),
+                    howFeel: Math.floor(day.main.feels_like - 273.15),
+                    windDirectiondAndSpeed: `${HelpersComponent.getWorldSide(day.wind.deg)}-${Math.floor(day.wind.speed * 3.6)}`
+                }
+            })
+    
+            let fiveDayDaily = this.getHighestDayTemp(await fiveDayWeather);
+    
+            fiveDayDaily = fiveDayDaily.slice(0, 5).map((day: any) => {
+                return day = {
+                    weekDay: day.weekDay,
+                    date: day.date,
+                    icon: day.icon,
+                    temp: day.temp,
+                    description: day.description,
+                }
+            })
+    
+            this.fiveDayDaily = fiveDayDaily;
+            this.fiveDayWeather = fiveDayWeather;
+        } catch (error) {
+                       
+        }
     }
+    
 
     getHourlyWeather(weekDay: string){
         let currentDay = this.fiveDayWeather.filter((e: { weekDay: string; }) => e.weekDay.toLocaleUpperCase() == weekDay);

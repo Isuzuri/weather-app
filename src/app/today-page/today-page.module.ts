@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TodayPageComponent } from './today-page.component';
 import { CurrentComponent } from './current/current.component';
 import { HourlyComponent } from './hourly/hourly.component';
-import { NearbyComponent } from './nearby/nearby.component';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -13,7 +12,6 @@ import { SharedModule } from '../shared/shared.module';
     TodayPageComponent,
     CurrentComponent,
     HourlyComponent,
-    NearbyComponent
   ],
   imports: [
     CommonModule,
@@ -22,8 +20,7 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
     TodayPageComponent,
     CurrentComponent,
-    HourlyComponent,
-    NearbyComponent
+    HourlyComponent
   ]
 })
 export class TodayPageModule { }

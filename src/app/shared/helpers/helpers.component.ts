@@ -1,10 +1,3 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'helpers',
-  templateUrl: './helpers.component.html',
-  styleUrls: ['./helpers.component.scss']
-})
 export class HelpersComponent {
   static async getGeopos(city: string) {
     const geoPosition = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a8d6480edb4735dd39b1b37f0993ebc2`).then(res => res.json());

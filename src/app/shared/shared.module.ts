@@ -4,15 +4,13 @@ import { CardTitleComponent } from './card-title/card-title.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
-import { HelpersComponent } from './helpers/helpers.component';
 
 
 @NgModule({
   declarations: [
     CardTitleComponent,
     NavigationBarComponent,
-    TableComponent,
-    HelpersComponent
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -21,8 +19,7 @@ import { HelpersComponent } from './helpers/helpers.component';
   exports: [
     CardTitleComponent,
     NavigationBarComponent,
-    TableComponent,
-    HelpersComponent
+    TableComponent
   ]
 })
 export class SharedModule { }

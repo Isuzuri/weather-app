@@ -11,7 +11,6 @@ export class HeaderComponent implements OnInit {
   constructor(private todayService: TodayService, private fiveDayService: FiveDayService) {}
 
   public placeholder: string = ''
-  private API_KEY = "a8d6480edb4735dd39b1b37f0993ebc2";
 
   ngOnInit() {
     this.setWeather('Tokyo')
@@ -28,10 +27,8 @@ export class HeaderComponent implements OnInit {
   }
 
   async setWeatherByGeolocation(lat: number, lon: number) {
-    const city = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}`).then(res => res.json());
-    
-    
-    this.placeholder = await city.name;
+    const city = await this.todayService.getCity(lat, lon);
+    this.placeholder = await city;
     this.setWeather(this.placeholder);
   }
 }
